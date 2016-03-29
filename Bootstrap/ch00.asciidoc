@@ -1,0 +1,154 @@
+[preface]
+[[PREFACE]]
+Preface
+-------
+
+Bootstrap is a front-end framework for building responsive websites. Whether it is application frameworks, blogs, or other CMS applications, Bootstrap can be a good fit, as it can be as vanilla as you like. Its combination of HTML, CSS, and JavaScript make it easy to build robust sites without adding a lot of code. With a default grid system, layouts come together with ease, and the styling of buttons, navs, and tables make basic markup look great from the get-go. A dozen or so JavaScript plugins catapult you into adding interactive elements to your site.((("Bootstrap", "overview of")))
+
+
+Who This Book Is For
+~~~~~~~~~~~~~~~~~~~~
+
+This book is mostly for people who have a good handle on HTML/CSS and JavaScript, and are curious about building responsive sites, adding the Bootstrap JavaScript plugins, or building sites faster by using this popular open source framework.
+
+
+Who This Book Is Not For
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+This book is not for people who get all they need out of the Bootstrap online documentation. Like a lot of people, the online docs are where I got started—building my first site with Bootstrap 1.3 and then upgrading it to Bootstrap 1.4. After that, I built a big project with Bootstrap 2.0, and so on. If you are comfortable writing semantic HTML, then jumping into Bootstrap should be easy for you.((("Bootstrap", "prerequisites to learning")))
+
+What This Book Will Do For You
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you have some background in writing HTML/CSS and JavaScript, this book will help you get off the ground writing some flexible code for responsive websites. In practical terms, the concepts and code syntax should come easily, as the book follows the patterns for writing semantic HTML and CSS.
+
+
+How This Book Works
+~~~~~~~~~~~~~~~~~~~
+
+This book builds a site with Bootstrap, starting at the foundation of the project and the file structure, moving up through the grid system and layout types, and into HTML elements and styling like forms, tables, and buttons. Once the walls are up, we move into the aesthetic elements like navbars, breadcrumbs, and media objects. After that, we move on to the JavaScript elements, such as dropdowns, the carousel, and modals, that provide the interaction for a site.
+
+
+Why I Wrote This Book
+~~~~~~~~~~~~~~~~~~~~~
+
+I'm not a Bootstrap expert hoping to create more Bootstrap experts to get a lot of work done.
+
+I'm a developer and writer who encountered Bootstrap through a post on Dave Winer's blog, and I thought it would be cool to apply it to a new site that I was working on. I feel compelled to share some of what I've learned. I'm hoping that the path I followed will work for other people, probably with variations, and that a book written from a beginner's perspective (and vetted by experts) will help more people find and enjoy Bootstrap.((("Winer, Dave")))
+
+
+Other Resources
+~~~~~~~~~~~~~~~
+
+This book may not be the best way for you to learn Bootstrap. It all depends on what you want to learn and why.(((Bootstrap, additional resources)))
+
+If your primary interest is to get started building Bootstrap websites, the http://twitter.github.com/bootstrap/[online documentation] will likely suit you perfectly. The authors, Jacob Thornton and Mark Otto, have been meticulous in providing examples of the codebase, HTML code samples, and more to kickstart your project. It is top notch, and I've used it to gather the structure for this book.((("Thornton, Jacob")))((("Otto, Mark")))
+
+If you want to contribute to the work of the open source project, you can submit pull requests or use the issue tracker on the http://github.com/twitter/bootstrap/[GitHub project] for updates, downloads, documentation, and more.
+
+Are You Sure You Want Bootstrap?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you are looking for JavaScript plugins, or a CSS reset, Bootstrap may be overkill. If you aren't in love with some of the default interface elements, they can be overwritten easily or you can just strip out the associated tags. If you are looking for an easy way to build fast, responsive websites, Bootstrap is a great way to get going. I use it on all of my projects, and I'm really happy with it.(((Bootstrap, selection of)))
+
+
+Conventions Used in This Book
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following typographical conventions are used in this book:
+
+_Italic_:: Indicates new terms, URLs, email addresses, filenames, and file extensions.
+
++Constant width+:: Used for program listings, as well as within paragraphs to refer to program elements such as variable or function names, statements, and keywords.
+
+**`Constant width bold`**:: Shows commands or other text that should be typed literally by the user.
+
+_++Constant width italic++_:: Shows text that should be replaced with user-supplied values or by values determined by context.
+
+[TIP]
+====
+This icon signifies a tip, suggestion, or general note.
+====
+
+[WARNING]
+====
+This icon indicates a warning or caution.
+====
+
+Using Code Examples
+~~~~~~~~~~~~~~~~~~~
+
+The examples in this book are meant to teach basic concepts in small bites. While you may certainly borrow code and reuse it as you see fit, you won't be able to take the code of this book and build a stupendous application instantly (unless perhaps you have an unusual fondness for bacon and cats). You should, however, be able to figure out the steps you need to take to build a great website.
+
+You can download the code from the Examples link on the http://oreil.ly/bootstrap-web[book's page].
+
+This book is here to help you get your job done. In general, if this book includes code examples, you may use the code in this book in your programs and documentation. You do not need to contact us for permission unless you’re reproducing a significant portion of the code. For example, writing a program that uses several chunks of code from this book does not require permission. Selling or distributing a CD-ROM of examples from O’Reilly books does require permission. Answering a question by citing this book and quoting example code does not require permission. Incorporating a significant amount of example code from this book into your product’s documentation does require permission.
+
+We appreciate, but do not require, attribution. An attribution usually includes the title, author, publisher, and ISBN. For example: "_Bootstrap_, by Jake Spurlock (O'Reilly). Copyright 2013 Jake Spurlock, 978-1-4493-4391-0."
+
+If you feel your use of code examples falls outside fair use or the permission given above, feel free to contact us at pass:[<email>permissions@oreilly.com</email>].
+
+Help This Book Grow
+~~~~~~~~~~~~~~~~~~~
+
+While I hope that you will enjoy reading this book and will learn from it, I also hope that you can contribute to helping other readers learn to use Bootstrap. You can help your fellow readers in a number of ways:
+
+* If you find specific technical problems, bad explanations, or things that can be improved, please report them through the http://oreil.ly/bootstrap-errata[errata system].
+
+* If you like (or don't like) the book, please leave reviews. The most visible places to do so are on Amazon.com (or its international sites) and at the http://oreil.ly/bootstrap-web[O'Reilly page for the book]. Detailed explanations of what worked and what didn't work for you (and the broader target audience of programmers new to Bootstrap) are helpful to other readers and to me.
+
+* If you find you have much more you want to say about Bootstrap, please consider sharing it, whether on the Web, in a book of your own, in training classes, or in whatever form you find easiest.
+
+I'll update the book for errata and try to address issues raised in reviews. Even once the book is published, I may still add some extra pieces to it. If you purchased it as an ebook, you'll receive these updates for free until it's time for a whole new edition. I don't expect that new edition declaration to come quickly, however, unless the Bootstrap world changes substantially.
+
+Hopefully this book will engage you enough to make you consider sharing.
+
+=== Safari® Books Online
+
+[role = "safarienabled"]
+[NOTE]
+====
+pass:[<ulink role="orm:hideurl:ital" url="http://my.safaribooksonline.com/?portal=oreilly">Safari Books Online</ulink>] is an on-demand digital library that delivers expert pass:[<ulink role="orm:hideurl" url="http://www.safaribooksonline.com/content">content</ulink>] in both book and video form from the world&#8217;s leading authors in technology and business.
+====
+
+Technology professionals, software developers, web designers, and business and creative professionals use Safari Books Online as their primary resource for research, problem solving, learning, and certification training.
+
+Safari Books Online offers a range of pass:[<ulink role="orm:hideurl" url="http://www.safaribooksonline.com/subscriptions">product mixes</ulink>] and pricing programs for pass:[<ulink role="orm:hideurl" url="http://www.safaribooksonline.com/organizations-teams">organizations</ulink>], pass:[<ulink role="orm:hideurl" url="http://www.safaribooksonline.com/government">government agencies</ulink>], and pass:[<ulink role="orm:hideurl" url="http://www.safaribooksonline.com/individuals">individuals</ulink>]. Subscribers have access to thousands of books, training videos, and prepublication manuscripts in one fully searchable database from publishers like O’Reilly Media, Prentice Hall Professional, Addison-Wesley Professional, Microsoft Press, Sams, Que, Peachpit Press, Focal Press, Cisco Press, John Wiley & Sons, Syngress, Morgan Kaufmann, IBM Redbooks, Packt, Adobe Press, FT Press, Apress, Manning, New Riders, McGraw-Hill, Jones & Bartlett, Course Technology, and dozens pass:[<ulink role="orm:hideurl" url="http://www.safaribooksonline.com/publishers">more</ulink>]. For more information about Safari Books Online, please visit us pass:[<ulink role="orm:hideurl" url="http://www.safaribooksonline.com/">online</ulink>].
+
+=== How to Contact Us
+
+Please address comments and questions concerning this book to the publisher:
+
+++++
+<simplelist>
+<member>O’Reilly Media, Inc.</member>
+<member>1005 Gravenstein Highway North</member>
+<member>Sebastopol, CA 95472</member>
+<member>800-998-9938 (in the United States or Canada)</member>
+<member>707-829-0515 (international or local)</member>
+<member>707-829-0104 (fax)</member>
+</simplelist>
+++++
+
+We have a web page for this book, where we list errata, examples, and any additional information. You can access this page at link:$$http://oreil.ly/bootstrap-web$$[].
+
+++++
+<remark>Don't forget to update the link above.</remark>
+++++
+
+To comment or ask technical questions about this book, send email to pass:[<email>bookquestions@oreilly.com</email>].
+
+For more information about our books, courses, conferences, and news, see our website at link:$$http://www.oreilly.com$$[].
+
+Find us on Facebook: link:$$http://facebook.com/oreilly$$[]
+
+Follow us on Twitter: link:$$http://twitter.com/oreillymedia$$[]
+
+Watch us on YouTube: link:$$http://www.youtube.com/oreillymedia$$[]
+
+Acknowledgments
+~~~~~~~~~~~~~~~
+
+Many thanks to Dave Winer for introducing me to Bootstrap in the first place, and to Simon St. Laurent for the opportunity to write this book. Detailed feedback from my friends Roseanne Fallin and Tony Quartorolo has made it possible; I hope that this book can get readers started on the right track. I would also like to thank Melissa Morgan for letting me take a few risks and develop the way that I like at _MAKE_.
+
+In particular, thanks to my wonderful wife, Melissa, for putting up with me and encouraging me to finish. And thanks to my son, Rush, for understanding that I needed to "work" and to my daughter, Hailey, for the warm smiles and huge hugs. I love my family, and am so glad for everything they offer me.

@@ -1,0 +1,1124 @@
+[[css]]
+== Bootstrap CSS
+
+At the core of Bootstrap is a set of basic HTML elements that have been styled to allow for easy enhancement via classes and user styles.((("HTML elements", seealso="CSS (Cascading Style Sheets)")))
+
+// tidied up some of the phrasing throughout this chap. -NM
+
+//I'm thinking for this chapter I'd love to see like a series of image slideshows for each section, showing the rendered html, the source html, and the CSS for whatever is being discussed. I envision these floating out into the margin of the chimera page a bit, and running alongside the text. I need to come up with a way to tag these in Atlas etc, but it seems very doable to me. We could also have them render in the other formats, as well (epub, mobi, print), but just display each image linearly. Thoughts? -NM
+
+=== Typography
+
+Starting with typography, Bootstrap uses Helvetica Neue, Helvetica, Arial, and sans-serif in its default font stack. These are all standard fonts and are included as defaults on all major computers. If by chance these fonts don't exist, they fall back to `sans-serif` (the catchall) to tell the browser to use the default font for the browser. All body copy has the `font-size` set at 14 pixels, with the `line-height` set at 20 pixels. The `<p>` tag has a `margin-bottom` of 10 pixels, or half the `line-height`.((("CSS (Cascading Style Sheets)", "typography", id="ix_CSStypo", range="startofrange")))(((typography, default styles for)))
+
+//RE: the base font families, maybe just add a few words or a sentence about how these are just standard web/system fonts, and not special font files that live in bootstrap or anything...unless they are... -NM
+// Good point, added another line. -JS
+
+==== Headings
+
+All six standard heading levels have been styled in Bootstrap (see <<figure2-1>>), with the `<h1>` at 36 pixels tall, and the `<h6>` down to 12 pixels (for reference, default body text is 14 pixels tall). In addition, to add an inline subheading to any of the headings, simply add `<small>` around any of the elements and you will get smaller text in a lighter color.
+In the case of the `<h1>`, the small text is 24 pixels tall, normal font weight (i.e., not bold), and gray instead of black: (((typography, headings)))(((headings)))(((inline subheadings)))((("<small> tag", sortas="small tag")))
+
+[source, css]
+----------
+h1 small {
+    font-size:24px;
+	font-weight:normal;
+	line-height:1;
+	color:#999;
+	}
+----------
+
+[[figure2-1]]
+.Headings
+image::images/boot_0201.png[]
+
+// Bit weird to call this "adding emphasis"--I usually think of emphasis as bolder or italic or bigger, but not smaller and lighter. Is there another way to describe this effect? -NM
+// I'm now calling it an inline sub-heading. -JS
+
+// Added a place holder above for body text font size, to give the heading sizes a frame of reference. Also tweaked the last sentence to make it a little clearer. -NM
+
+// Should all the sections that follow this comment actually be level 4 headings, not level 5? -NM
+// Not sure I follow here... -JS
+
+==== Lead Body Copy
+
+To add some emphasis to a paragraph, add `class="lead"` (see <<figure2-2>>). This will give you larger font size, lighter weight, and a taller line height. This is generally used for the first few paragraphs in a section, but it can really be used anywhere(((typography, lead body copy)))(((lead body copy)))((("paragraphs, adding emphasis to"))):
+
+// Added a sentence about historic usage of ledes above. -NM
+
+
+[source, html]
+----------
+<p class="lead">Bacon ipsum dolor sit amet tri-tip pork loin ball tip frankfurter
+swine boudin meatloaf shoulder short ribs cow drumstick beef jowl.
+Meatball chicken sausage tail, kielbasa strip steak turducken venison prosciutto.
+Chuck filet mignon tri-tip ribeye, flank brisket leberkas. Swine
+turducken turkey shank, hamburger beef ribs bresaola pastrami venison rump.</p>
+----------
+
+[[figure2-2]]
+.Lead body copy classes
+image::images/boot_0202.png[]
+
+
+==== Emphasis
+
+In addition to using the `<small>` tag within headings, as discussed above, you can also use it with body copy. When `<small>` is applied to body text, the font shrinks to 85% of its original size.(((typography, emphasis)))((("<small> tag", sortas="small tag")))
+
+==== Bold
+
+To add emphasis to text, simply wrap it in a `<strong>` tag. This will add `font-weight:bold;` to the selected text.(((typography, bold)))(((bold)))((("<strong> tag", sortas="strong tag")))
+
+==== Italics
+
+For italics, wrap your content in the `<em>` tag. The term "em" derives from the word "emphasis" and is meant to add stress to your text.(((typography, italics)))(((italics)))((("<em> tag", sortas="em tag")))((("<i> tag", sortas="i tag")))((("<b> tag", sortas="b tag")))
+
+.Heads Up!
+NOTE: You might be thinking, why not just use the `<b>` or `<i>` tags instead of `<em>` or `<strong>`? In HTML5, `<b>` is meant to highlight words or phrases without conveying additional importance--for example, key terms or names--while `<i>` is mostly for voice, technical terms, internal dialogue, and so on. For more information about the semantic changes to `<b>` and `<i>`, check out http://www.w3.org/International/questions/qa-b-and-i-tags[W3.org's article].
+
+// I added some stuff to this note. -NM
+
+==== Emphasis Classes
+
+Along with `<strong>` and `<em>`, Bootstrap offers a few other classes that can be used to provide emphasis (see <<figure2-3>>). These could be applied to paragraphs or spans(((typography, emphasis classes)))(((emphasis classes))):
+
+// Do these classes have to be applied at the paragraph level, or can they be applied to spans as well? -NM
+
+[source, html]
+--------
+<p class="muted">This content is muted</p>
+<p class="text-warning">This content carries a warning class</p>
+<p class="text-error">This content carries an error class</p>
+<p class="text-info">This content carries an info class</p>
+<p class="text-success">This content carries a success class</p>
+<p>This content has <em>emphasis</em>, and can be <strong>bold</strong></p>
+--------
+
+[[figure2-3]]
+.Emphasis classes
+image::images/boot_0203.png[]
+
+===== Abbreviations
+
+The HTML `<abbr>` element provides markup for abbreviations or acronyms, like WWW or HTTP (see <<figure2-4>>). By marking up abbreviations, you can give useful information to browsers, spell checkers, translation systems, or search engines. Bootstrap styles `<abbr>` elements with a light dotted border along the bottom and reveals the full text on hover (as long as you add that text to the `<abbr>` title attribute)(((typography, abbreviations)))(((abbreviations)))((("<abbr> tag", sortas="abbr tag"))):
+
+[source, html]
+--------
+<abbr title="Real Simple Syndication">RSS</abbr>
+--------
+
+[[figure2-4]]
+.Abbreviation example
+image::images/boot_0204.png[]
+
+Add `.initialism` to an `<abbr>` for a slightly smaller font size (see <<figure2-5>>):
+
+[source, html]
+--------
+<abbr title="rolling on the floor, laughing out loud">That joke had me ROTFLOL
+</abbr>
+--------
+
+[[figure2-5]]
+.Another abbreviation example
+image::images/boot_0205.png[width="3.in"]
+
+
+===== Addresses
+
+Adding `<address>` elements to your page can help screen readers and search engines locate any physical addresses and phone numbers in the text (see <<figure2-6>>). It can also be used to mark up email addresses. Since the `<address>` defaults to `display:block;` you'll need to use `<br>` tags to add line breaks to the enclosed address text (e.g., to split the street address and city onto separate lines)(((typography, addresses)))(((addresses)))((("<address> tag", sortas="address elements")))(((phone numbers)))(((email addresses))):
+
+// I added the / to the br tags here to make it valid xhtml, but you can ditch them if you dont want them there. Also added a little extra to the end of the paragraph. -NM
+// I'm going to stick with the <br>. I normally write them the other way, but to stick to the spec, it would be this way.
+// http://www.w3.org/html/wg/drafts/html/master/text-level-semantics.html#the-br-element
+
+[source, html]
+--------
+<address>
+  <strong>O'Reilly Media, Inc.</strong><br>
+  1005 Gravenstein HWY North<br>
+  Sebastopol, CA 95472<br>
+  <abbr title="Phone">P:</abbr> <a href="tel:+17078277000">(707) 827-7000</a>
+</address>
+
+<address>
+  <strong>Jake Spurlock</strong><br>
+  <a href="mailto:#">flast@oreilly.com</a>
+</address>
+--------
+
+[[figure2-6]]
+.Address tag
+image::images/boot_0206.png[width="2.8in"]
+
+
+===== Blockquotes
+
+To add blocks of quoted text to your document--or for any quotation that you want to set apart from the main text flow--add the `<blockquote>` tag around the text. For best results, and for line breaks, wrap each subsection in a `<p>` tag. Bootstrap's default styling indents the text and adds a thick gray border along the left side. To identify the source of the quote, add the `<small>` tag, then add the source's name wrapped in a `<cite>` tag before closing the `</small>` tag: (((typography, block quotes)))(((block quotes)))(((quotes)))((("<blockquote> tag", sortas="blockquote tag"))) 
+
+// Do they have to use the small tag for the source, or is that just a stylistic suggestion? -NM
+// It is a stylistic suggestion. There is some CSS that supports it. -JS
+
+[source, html]
+--------
+<blockquote>
+	<p>That this is needed, desperately needed, is indicated by the 
+    incredible uptake of Bootstrap. I use it in all the server software
+    I'm working on. And it shows through in the templating language I'm
+    developing, so everyone who uses it will find it's "just there" and
+    works, any time you want to do a Bootstrap technique. Nothing to do,
+    no libraries to include. It's as if it were part of the hardware.
+    Same approach that Apple took with the Mac OS in 1984.</p>
+	<small>Developer of RSS, <cite title="Source Title">Dave Winer</cite>
+    </small>
+</blockquote>
+--------
+
+When you put it all together, you get something that looks like <<figure2-7>>.
+
+[[figure2-7]]
+.Basic blockquote
+image::images/boot_0207.png[]
+
+.Heads Up!
+NOTE: If you want a `<blockquote>` with content that is right aligned, add `.pull-right` to the tag. In addition to the right-aligned text, the entire `blockquote` is floated to the right. This creates nice pull-quotes in your content, as shown in <<figure2-8>>.(((pull-quotes)))(((right alignment)))
+
+[[figure2-8]]
+.Pull right blockquote
+image::images/boot_0208.png[]
+
+==== Lists
+
+Bootstrap offers support and styling for the three main list types that HTML offers: ordered, unordered, and definition lists. An unordered list is a list that doesn't have any particular order and is traditionally styled with bullets.(((typography, lists)))(((lists)))
+
+===== Unordered list
+
+If you have an ordered list that you would like to remove the bullets from,  add `class="unstyled"` to the opening `<ul>` tag (see <<figure2-9>>)(((unordered lists)))(((bulleted lists)))(((line breaks)))((("<br> tag", sortas="br tag"))):
+
+[source, html]
+--------
+
+<h3>Favorite Outdoor Activities</h3>
+<ul>
+	<li>Backpacking in Yosemite</li>
+	<li>Hiking in Arches
+		<ul>
+			<li>Delicate Arch</li>
+			<li>Park Avenue</li>
+		</ul>
+	</li>
+	<li>Biking the Flintstones Trail</li>
+</ul>
+
+--------
+
+[[figure2-9]]
+.Unordered list
+image::images/outdoor.png[]
+
+[NOTE]
+=====================================================================
+Personally, I hold a strong aversion to using the `<br>` tag. When I want a single-spaced line break, I place each line in an unstyled, unordered list. For example, if you want a condensed address box, like in <<figure2-6>>, you could code each line as `<li>`. In my mind, this is a more semantic way to mark up the text.
+=====================================================================
+
+// it seemed like this para belonged in the unordered list section, so i moved it. I also split it, since it seemed like there were two different thoughts there. Also it seems like you're still working out the second thought (which I tagged as a note, because it felt like it was going to be a note to me, but feel free to change). -NM
+
+// Thanks. -JS
+
+++++
+<?hard-pagebreak?>
+++++
+
+===== Ordered list
+
+An ordered list is a list that falls in some sort of sequential order and is prefaced by numbers rather than bullets (see <<figure2-10>>). This is handy when you want to build a list of numbered items like a task list, guide items, or even a list of comments on a blog post(((ordered lists))):
+
+[source, html]
+--------
+
+<h3>Self-Referential Task List</h3>
+<ol>
+	<li>Turn off the internet.</li>
+	<li>Write the book.</li>
+	<li>... Profit?</li>
+</ol>
+
+--------
+
+[[figure2-10]]
+.Ordered list
+image::images/boot_0210.png[]
+
+===== Definition list
+
+The third type of list you get with Bootstrap is the definition list. The definition list differs from the ordered and unordered list in that instead of just having a block-level `<li>` element, each list item can consist of both the `<dt>` and the `<dd>` elements. `<dt>` stands for "definition term," and like a dictionary, this is the term (or phrase) that is being defined. Subsequently, the `<dd>` is the definition of the `<dt>`.(((definition lists)))((("<dt> tag", sortas="dt tag")))((("<dd> tag", sortas="dd tag")))
+
+A lot of times in markup, you will see people using headings inside an unordered list. This works, but may not be the most semantic way to mark up the text. A better method would be creating a `<dl>` and then styling the `<dt>` and `<dd>` as you would the heading and the text (see <<figure2-11>>). That being said, Bootstrap offers some clean default styles and an option for a side-by-side layout of each definition:
+
+// A little unclear on the above paragraph: people use ul's instead of dl's? And the heading is inside the ul? wha? -NM
+// Changed the first sentence in the second paragraph. Make a little more sense? -JS
+
+[source, html]
+--------
+<h3>Common Electronics Parts</h3>
+<dl>
+	<dt>LED</dt>
+	<dd>A light-emitting diode (LED) is a semiconductor light source.</dd>
+	<dt>Servo</dt>
+	<dd>Servos are small, cheap, mass-produced actuators used for radio
+    control and small robotics.</dd>
+</dl>
+--------
+
+[[figure2-11]]
+.Definition list
+image::images/boot_0211.png[]
+
+To change the `<dl>` to a horizontal layout, with the `<dt>` on the left side and the `<dd>` on the right, simply add `class="dl-horizontal"` to the opening tag (see <<figure2-12>>).(((horizontal definition lists)))
+
+[[figure2-12]]
+.Horizontal definition list
+image::images/boot_0212.png[]
+
+.Heads Up!
+NOTE: Horizontal description lists will truncate terms that are too long to fit in the left column with `text-overflow`. Additionally, in narrower viewports, they will automatically change to the default stacked layout.(((range="endofrange", startref="ix_CSStypo")))
+
+=== Code
+
+There are two different key ways to display code with Bootstrap. The first is the `<code>` tag and the second is the `<pre>` tag. Generally, if you are going to be displaying code inline, you should use the `<code>` tag. But if the code needs to be displayed as a stand-alone block element or if it has multiple lines, then you should use the `<pre>` tag((("CSS (Cascading Style Sheets)", "displaying code")))((("<code> tag", sortas="code tag")))((("<pre> tag", sortas="pre tag")))((("code, displaying"))):
+
+[source, html]
+--------
+<p>Instead of always using divs, in HTML5, you can use new elements like 
+<code>&lt;section&gt;</code>, <code>&lt;header&gt;</code>, and 
+<code>&lt;footer&gt;</code>. The html should look something like this:</p>
+<pre>
+  &lt;article&gt;
+    &lt;h1&gt;Article Heading&lt;/h1&gt;
+  &lt;/article&gt;
+</pre>
+--------
+
+++++
+<?hard-pagebreak?>
+++++
+
+.Heads Up!
+WARNING: Make sure that when you use the `<pre>` and `<code>` tags, you should use the HTML entities for `<` and `>` inside these tags: `&lt;` and `&gt;`.
+
+// Hm I don't think I use the unicode codes for tags inside my code blocks. Is this necessary? What does it do? -NM
+// If you don't use the unicode, the browser will try to use them as normal HTML variants. -JS
+// There is no such thing as Unicode variants of HTML tags.  These HTML entities are defined by
+ the HTML spec to represent various characters would otherwise be represented as parts of tags.  You
+ cam also use numeric HTML entities to represent Unicode characters, but it is much easier to just
+ set the charset appropriately and type the characters in.  This idea codes from HTML's ancestor SGML
+ and is carried through to XML as well.
+
+=== Tables
+
+One of my favorite parts of Bootstrap is the nice way that tables are handled. I do a lot of work looking at and building tables, and the clean layout is a great feature that's included in Bootstrap right off the bat. <<table2-1>> lists the various elements supported by Bootstrap.((("CSS (Cascading Style Sheets)", "tables", id="ix_CSStabl", range="startofrange")))((("tables", id="ix_tabls", range="startofrange")))
+
+[[table2-1]]
+.Table elements supported by Bootstrap
+[frame="topbot",options="header"]
+|======================
+|Tag           |Description
+|`<table>`     |Wrapping element for displaying data in a tabular format
+|`<thead>`     |Container element for table header rows (`<tr>`) to label table columns
+|`<tbody>`     |Container element for table rows (`<tr>`) in the body of the table
+|`<tr>`        |Container element for a set of table cells (`<td>` or `<th>`) that appears on a single row
+|`<td>`        |Default table cell
+|`<th>`        |Special table cell for column (or row, depending on scope and placement) labels. Must be used within a `<thead>`
+|`<caption>`   |Description or summary of what the table holds, especially useful for screen readers
+|======================
+
+
+If you want a nice, basic table style with just some light padding and horizontal dividers, add the base class of `.table` to any table (see <<figure2-13>>). The basic layout has a top border on all of the `<td>` elements:
+
+[source, html]
+--------
+<table class="table">
+  <caption>...</caption>
+  <thead>
+    <tr>
+      <th>...</th>
+      <th>...</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+  </tbody>
+</table>
+--------
+
+[[figure2-13]]
+.Basic table class
+image::images/boot_0213.png[]
+
+==== Optional Table Classes
+
+Along with the base table markup and the `.table` class, there are a few additional classes that you can use to style the markup. These four classes are: `.table-striped`, `.table-bordered`, `.table-hover`, and `.table-condensed`.
+
+===== Striped table
+
+By adding the `.table-striped` class, you will get stripes on rows within the `<tbody>` (see <<figure2-14>>). This is done via the CSS `:nth-child` selector, which is not available on Internet Explorer 7–8.(((striped table class)))
+
+[[figure2-14]]
+.Striped table class
+image::images/boot_0214.png[]
+
+===== Bordered table
+
+If you add the `.table-bordered` class, you will get borders surrounding every element and rounded corners around the entire table, as shown in <<figure2-15>>.(((bordered table class)))
+
+[[figure2-15]]
+.Bordered table class
+image::images/boot_0215.png[]
+
+===== Hover table
+
+<<figure2-16>> shows the `.table-hover` class. A light gray background will be added to rows while the cursor hovers over them.(((hover table class)))
+
+[[figure2-16]]
+.Hover table class
+image::images/boot_0216.png[]
+
+===== Condensed table
+
+If you add the `.table-condensed` class, as shown in <<figure2-17>>, row padding is cut in half to condense the table. This is useful if you want denser information.(((condensed table class)))
+
+[[figure2-17]]
+.Condensed table class
+image::images/boot_0217.png[]
+
+
+==== Table Row Classes
+
+The classes shown in <<table2-2>> will allow you to change the background color of your rows (see <<figure2-18>>).(((range="endofrange", startref="ix_CSStabl")))(((range="endofrange", startref="ix_tabls")))(((table row classes)))((("rows, changing color of")))(((row classes)))(((colors, changing for rows)))
+
+[[table2-2]]
+.Optional table row classes
+[frame="topbot",options="header"]
+|======================
+|Class         |Description 											|Background color
+|`.success`    |Indicates a successful or positive action.				|Green
+|`.error`      |Indicates a dangerous or potentially negative action.	|Red
+|`.warning`    |Indicates a warning that might need attention.			|Yellow
+|`.info`       |Used as an alternative to the default styles.			|Blue
+|======================
+
+[[figure2-18]]
+.Table row classes
+image::images/boot_0218.png[]
+
+=== Forms
+
+Another one of the highlights of using Bootstrap is the ability to create forms with ease. As a web developer, styling forms is one of my least favorite tasks. Bootstrap makes it easy with the simple HTML markup and extended classes for different styles of forms.((("CSS (Cascading Style Sheets)", "forms", id="ix_CSSform", range="startofrange")))(((forms, basic layout)))(((placeholder text)))
+
+The basic form structure comes with Bootstrap; there is no need to add any extra helper classes (see <<figure2-19>>). If you use the placeholder, keep in mind that it is only supported in newer browsers. In older browsers, no placeholder text will be displayed:
+
+[source, html]
+----
+<form>
+	<fieldset>
+		<legend>Legend</legend>
+			<label for="name">Label name</label>
+			<input type="text" id="name" 
+                   placeholder="Type something…">
+			<span class="help-block">Example block-level help 
+                         text here.</span>
+			<label class="checkbox" for="checkbox">
+				<input type="checkbox" id="checkbox"> 
+                Check me out
+			</label>
+		<button type="submit" class="btn">Submit</button>
+	</fieldset>
+</form>
+----
+
+[[figure2-19]]
+.Basic form
+image::images/boot_0219.png[]
+
+==== Optional Form Layouts
+
+With a few helper classes, you can dynamically update the layout of your form. Bootstrap comes with a few preset styles to choose from.
+
+===== Search form
+
+Add `.form-search` to the `<form>` tag, and then add `.search-query` to the `<input>` for an input box with rounded corners and an inline submit button (see <<figure2-20>>)(((forms, search forms)))(((search forms))):
+
+[source, html]
+----
+<form class="form-search">
+  <input type="text" class="input-medium search-query">
+  <button type="submit" class="btn">Search</button>
+</form>
+----
+
+[[figure2-20]]
+.Search form
+image::images/boot_0220.png[]
+
+===== Inline form
+
+To create a form where all of the elements are inline and labels are alongside, add the class `.form-inline` to the `<form>` tag (see <<figure2-21>>). To have the label and the input on the same line, use this inline form code(((forms, inline forms)))(((inline forms))):
+
+// So, does this make just each input and its label inline, or are all the form elements in one long line? -NM
+// All of the labels and inputs are in one line. I thine the screenshot shows the difference between this and the horizontal.
+
+[source, html]
+----
+<form class="form-inline">
+	<input type="text" class="input-small" placeholder="Email">
+	<input type="password" class="input-small" placeholder="Password">
+	<label class="checkbox">
+		<input type="checkbox"> Remember me
+	</label>
+	<button type="submit" class="btn">Sign in</button>
+</form>
+----
+
+[[figure2-21]]
+.Inline form
+image::images/boot_0221.png[]
+
+===== Horizontal form
+
+Bootstrap also comes with a prebaked horizontal form; this one stands apart from the others not only in the amount of markup, but also in the presentation of the form. Traditionally you'd use a table to get a form layout like the one shown in <<figure2-22>>, but Bootstrap manages to do it without using tables. Even better, if you're using the responsive CSS, the horizontal form will automatically adapt to smaller layouts by stacking the controls vertically.(((forms, horizontal forms)))(((horizontal forms)))(((responsive design, automatic stacking)))
+
+To create a form that uses the horizontal layout, do the following:
+
+* Add a class of `.form-horizontal` to the parent `<form>` element.
+* Wrap labels and controls in a `<div>` with class `.control-group`.
+* Add a class of `.control-label` to the labels.
+* Wrap any associated controls in a `<div>` with class `.controls` for proper alignment.
+
+[[figure2-22]]
+.Horizontal form
+image::images/boot_0222.png[]
+
+[source, html]
+----
+<form class="form-horizontal">
+  <div class="control-group">
+    <label class="control-label" for="inputEmail">Email</label>
+    <div class="controls">
+      <input type="text" id="inputEmail" placeholder="Email">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputPassword">Password</label>
+    <div class="controls">
+      <input type="password" id="inputPassword" placeholder="Password">
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <label class="checkbox">
+        <input type="checkbox"> Remember me
+      </label>
+      <button type="submit" class="btn">Sign in</button>
+    </div>
+  </div>
+</form>
+----
+
+==== Supported Form Controls
+
+Bootstrap natively supports the most common form controls. Chief among them are `input`, `textarea`, `checkbox`, `radio`, and `select`.(((forms, form controls)))((("controls, for forms")))
+
+===== Inputs
+
+The most common form text field is the input--this is where users will enter most of the essential form data (see <<figure2-23>>). Bootstrap offers support for all native HTML5 input types: +text+, +password+, +datetime+, +datetime-local+, +date+, +month+, +time+, +week+, +number+, +email+, +URL+, +search+, +tel+, and +color+(((input, types supported)))(((HTML5 input types)))((("data input", seealso="forms"))):
+
+[source, html]
+----
+<input type="text" placeholder="Text input">
+----
+
+[[figure2-23]]
+.Input
+image::images/boot_0223.png[]
+
+.Heads Up!
+NOTE: Both `input` and `textarea` default to a nice blue glow when in the pass:[<phrase role="keep-together"><literal>:active</literal></phrase>] state.
+
+image::images/boot_02in01.png[]
+
+
+===== Textarea
+
+The `textarea` is used when you need multiple lines of input (see <<figure2-24>>). You'll find you mainly modify the `rows` attribute, changing it to the number of rows that you need to support (fewer rows = smaller box, more rows = bigger box)((("textarea form control"))):
+
+[source,html]
+----
+<textarea rows="3"></textarea>
+----
+
+[[figure2-24]]
+.Both the :active default and the textarea
+image::images/boot_0224.png[]
+
+===== Checkboxes and radio buttons
+
+Checkboxes and radio buttons are great when you want users to choose from a list of preset options (see <<figure2-25>>). When building a form, use `checkbox` if you want the user to select any number of options from a list. Use `radio` if you want to limit him to just one selection(((checkboxes)))(((radio buttons)))(((buttons, radio buttons))):
+
+[source,html]
+----
+<label class="checkbox">
+  <input type="checkbox" value="">
+  Option one is this and that—be sure to include why it's great.
+</label>
+
+<label class="radio">
+  <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" 
+  checked>
+  Option one is this and that—be sure to include why it's great.
+</label>
+<label class="radio">
+  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+  Option two can be something else, and selecting it will deselect option one
+</label>
+----
+
+[[figure2-25]]
+.Checkbox and radio buttons
+image::images/boot_0225.png[]
+
+If you want multiple checkboxes to appear on the same line together, add the `.inline` class to a series of checkboxes or radio buttons (see <<figure2-26>>):
+
+[source,html]
+----
+<label for="option1" class="checkbox inline">
+  <input id="option1" type="checkbox" id="inlineCheckbox1" value="option1"> 1
+</label>
+<label for="option2" class="checkbox inline">
+  <input id="option2" type="checkbox" id="inlineCheckbox2" value="option2"> 2
+</label>
+<label for="option3" class="checkbox inline">
+  <input id="option3" type="checkbox" id="inlineCheckbox3" value="option3"> 3
+</label>
+----
+
+[[figure2-26]]
+.Inline checkboxes
+image::images/inline.png[]
+
+===== Selects
+
+A select is used when you want to allow the user to pick from multiple options, but by default it only allows one (see <<figure2-27>>). It’s best to use `<select>` for list options with which the user is familiar, such as states or numbers. Use `multiple="multiple"` to allow the user to select more than one option.(((selects))) If you only want the user to choose one option, use `type="radio"`:
+
+// Wait...how is this different from radios? -NM
+// Added another line.
+
+[source,html]
+----
+<select>
+  <option>1</option>
+  <option>2</option>
+  <option>3</option>
+  <option>4</option>
+  <option>5</option>
+</select>
+
+<select multiple="multiple">
+  <option>1</option>
+  <option>2</option>
+  <option>3</option>
+  <option>4</option>
+  <option>5</option>
+</select>
+----
+
+[[figure2-27]]
+.Select
+image::images/boot_0227.png[]
+
+==== Extended Form Controls
+
+In addition to the basic form controls listed in the previous section, Bootstrap offers a few other form components to complement the standard HTML form elements; for example, it lets you easily prepend and append content to inputs.(((forms, extended form controls)))((("controls, for forms")))((("input", "prepending/appending")))(((prepending user input)))(((appending user input)))
+
+===== Prepended and appended inputs
+
+By adding prepended and appended content to an input field, you can add common elements to the user's input (see <<figure2-28>>). For example, you can add the dollar symbol, the `@` for a Twitter username, or anything else that might be common for your application interface. To add extra content before the user input, wrap the prepended input in a `<div>` with class `.input-prepend`. To append input, use the class `.input-append`. Then, within that same `<div>`, place your extra content inside a `<span>` with an `.add-on` class, and place the `<span>` either before or after the `<input>` element:
+
+// touched up this paragraph a bit -NM
+
+[source,html]
+----
+<div class="input-prepend">
+  <span class="add-on">@</span>
+  <input class="span2" id="prependedInput" type="text" placeholder="Username">
+</div>
+<div class="input-append">
+  <input class="span2" id="appendedInput" type="text">
+  <span class="add-on">.00</span>
+</div>
+----
+
+[[figure2-28]]
+.Prepend and append
+image::images/boot_0228.png[]
+
+If you combine both of them, you simply need to add both the `.input-prepend` and `.input-append` classes to the parent `<div>` (see <<figure2-29>>):
+
+[source,html]
+----
+<div class="input-prepend input-append">
+  <span class="add-on">$</span>
+  <input class="span2" id="appendedPrependedInput" type="text">
+  <span class="add-on">.00</span>
+</div>
+----
+
+[[figure2-29]]
+.Using both the append and prepend
+image::images/boot_0229.png[]
+
+Rather than using a `<span>`, you can instead use `<button>` with a class of `.btn` to attach (surprise!) a button or two to the input (see <<figure2-30>>):
+
+[source,html]
+----
+<div class="input-append">
+  <input class="span2" id="appendedInputButtons" type="text">
+  <button class="btn" type="button">Search</button>
+  <button class="btn" type="button">Options</button>
+</div>
+----
+
+[[figure2-30]]
+.Attach multiple buttons to an input
+image::images/boot_0230.png[]
+
+If you are appending a button to a search form, you will get the same nice rounded corners that you would expect (see <<figure2-31>>):
+
+[source,html]
+----
+<form class="form-search">
+  <div class="input-append">
+    <input type="text" class="span2 search-query">
+    <button type="submit" class="btn">Search</button>
+  </div>
+  <div class="input-prepend">
+    <button type="submit" class="btn">Search</button>
+    <input type="text" class="span2 search-query">
+  </div>
+</form>
+----
+
+[[figure2-31]]
+.Append button to search form
+image::images/boot_0231.png[]
+
+==== Form Control Sizing
+
+With the default grid system that is inherent in Bootstrap, you can use the `.span*` system for sizing form controls. In addition to the span column-sizing method, you can also use a handful of classes that take a relative approach to sizing. If you want the input to act as a block-level element, you can add `.input-block-level` and it will be the full width of the container element,(((forms, form control sizing)))(((block level elements)))(((sizing, of form controls))) as shown in <<figure2-32>>:
+
+[source,html]
+----
+<input class="input-block-level" type="text" placeholder=".input-block-level">
+----
+
+[[figure2-32]]
+.Block-level input
+image::images/boot_0232.png[]
+
+// Seems like this section needs to be fleshed out a little bit. -NM
+// Added another line to clear it up a bit. -JS
+
+===== Relative input controls
+
+In addition to using `.span*` for input sizing, you can also use a few different class names (see <<figure2-33>>)(((relative input controls))):
+
+[source,html]
+----
+<input class="input-mini" type="text" placeholder=".input-mini">
+<input class="input-small" type="text" placeholder=".input-small">
+<input class="input-medium" type="text" placeholder=".input-medium">
+<input class="input-large" type="text" placeholder=".input-large">
+<input class="input-xlarge" type="text" placeholder=".input-xlarge">
+<input class="input-xxlarge" type="text" placeholder=".input-xxlarge">
+----
+
+[[figure2-33]]
+.Relative input controls
+image::images/boot_02in02.png[]
+
+.Heads Up!
+NOTE: In future versions of Bootstrap, these input classes will be altered to match the button sizes. For example, `.input-large` will increase the padding and font size of an input.
+
+===== Grid sizing
+
+You can use any `.span` from `.span1` to `.span12` for form control sizing (see <<figure2-34>>)(((grid sizing)))(((sizing, of grids))):
+
+[source,html]
+----
+<input class="span1" type="text" placeholder=".span1">
+<input class="span2" type="text" placeholder=".span2">
+<input class="span3" type="text" placeholder=".span3">
+<select class="span1">
+  ...
+</select>
+<select class="span2">
+  ...
+</select>
+<select class="span3">
+  ...
+</select>
+----
+
+[[figure2-34]]
+.Span-sized inputs
+image::images/boot_02in03.png[]
+
+If you want to use multiple inputs on a line, simply use the `.controls-row` modifier class to apply the proper spacing (see <<figure2-35>>). It floats the inputs to collapse the white space; sets the correct margins; and, like the `.row` class, clears the float:
+
+[source,html]
+----
+<div class="controls">
+  <input class="span5" type="text" placeholder=".span5">
+</div>
+<div class="controls controls-row">
+  <input class="span4" type="text" placeholder=".span4">
+  <input class="span1" type="text" placeholder=".span1">
+</div>
+...
+----
+
+[[figure2-35]]
+.Control row
+image::images/boot_0233.png[]
+
+===== Uneditable text
+
+If you want to present a form control without allowing the user to edit the input, simply add the class `.uneditable-input` (see <<figure2-36>>)(((uneditable text)))(((forms, uneditable input))):
+
+[source,html]
+----
+<span class="input-xlarge uneditable-input">Some value here</span>
+----
+
+[[figure2-36]]
+.Uneditable input
+image::images/boot_0234.png[]
+
+===== Form actions
+
+When you place the form actions at the bottom of a `.horizontal-form`, the inputs will correctly line up with the floated form controls (see <<figure2-37>>):
+
+[source,html]
+----
+<div class="form-actions">
+  <button type="submit" class="btn btn-primary">Save changes</button>
+  <button type="button" class="btn">Cancel</button>
+</div>
+----
+
+[[figure2-37]]
+.Form controls
+image::images/boot_0235.png[]
+
+===== Help text
+
+Bootstrap form controls can have either block or inline text that flows with the inputs (see <<figure2-38>>)(((help text)))(((block help)))(((inline help))):
+
+[source,html]
+----
+<input type="text"><span class="help-inline">Inline help text</span>
+----
+
+[[figure2-38]]
+.Inline help
+image::images/boot_0236.png[]
+
+To add a full width block of content, use the `.help-block` after the `<input>` (see <<figure2-39>>):
+
+[source,html]
+----
+<input type="text"><span class="help-block">A longer block of help text that
+breaks onto a new line and may extend beyond one line.</span>
+----
+
+[[figure2-39]]
+.Block help
+image::images/boot_0237.png[]
+
+==== Form Control States
+
+In addition to the `:focus` state, Bootstrap offers styling for disabled inputs and classes for form validation.(((forms, form control states)))
+
+===== Input focus
+
+When an input receives `:focus` (i.e., a user clicks into the input or tabs onto it), the outline of the input is removed and a `box-shadow` is applied. I remember the first time that I saw this on Twitter's site; it blew me away, and I had to dig into the code to see how they did it. In WebKit, this is accomplished in the following manner(((input, focus on)))(((focused input)))(((WebKit)))(((box-shadow text))):
+
+[source, css]
+----
+input {
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: box-shadow linear 0.2s;
+}
+
+input:focus {
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px 
+                      rgba(82, 168, 236, 0.6);
+}
+----
+
+The `<input>` has a small inset `box-shadow`, which gives the appearance that the input sits lower than the page (see <<figure2-40>>). When `:focus` is applied, an 8px light blue border appears. The `webkit-transition` tells the browser to apply the effect in a linear manner over 0.2 seconds:
+
+[source,html]
+----
+<input class="input-xlarge" id="focusedInput" type="text" 
+              value="This is focused...">
+----
+
+[[figure2-40]]
+.Focused input
+image::images/boot_0238.png[]
+
+Nice and subtle; a great effect.
+
+===== Disabled input
+
+If you need to disable an input, simply adding the `disabled` attribute will not only disable it; it will also change the styling and the mouse cursor when the cursor hovers over the element (see <<figure2-41>>)(((disabled input))):
+
+[source,html]
+----
+<input class="input-xlarge" id="disabledInput" type="text" 
+              placeholder="Disabled input here..." disabled>
+----
+
+[[figure2-41]]
+.Disabled input
+image::images/boot_0239.png[]
+
+===== Validation states
+
+Bootstrap includes validation styles for error, warning, info, and success messages (see <<figure2-42>>). To use, simply add the appropriate class to the(((range="endofrange", startref="ix_CSSform")))(((validation states))) surrounding `.control-group`:
+
+[source,html]
+----
+<div class="control-group warning">
+  <label class="control-label" for="inputWarning">Input with warning</label>
+  <div class="controls">
+    <input type="text" id="inputWarning">
+    <span class="help-inline">Something may have gone wrong</span>
+  </div>
+</div>
+<div class="control-group error">
+  <label class="control-label" for="inputError">Input with error</label>
+  <div class="controls">
+    <input type="text" id="inputError">
+    <span class="help-inline">Please correct the error</span>
+  </div>
+</div>
+<div class="control-group success">
+  <label class="control-label" for="inputSuccess">Input with success</label>
+  <div class="controls">
+    <input type="text" id="inputSuccess">
+    <span class="help-inline">Woohoo!</span>
+  </div>
+</div>
+----
+
+[[figure2-42]]
+.Validation states
+image::images/boot_0240.png[]
+
+=== Buttons
+
+One of my favorite features of Bootstrap is the way that buttons are styled. Dave Winer, inventor of RSS and big fan of Bootstrap, has this to say about it((("CSS (Cascading Style Sheets)", "buttons", id="ix_CSSbutt", range="startofrange")))((("buttons", "styling of", id="ix_butt", range="startofrange"))):
+
+[quote, Dave Winer, scripting.com]
+____
+That this is needed, desperately needed, is indicated by the incredible uptake of Bootstrap. I use it in all the server software I'm working on. And it shows through in the templating language I'm developing, so everyone who uses it will find it's "just there" and works, any time you want to do a Bootstrap technique. Nothing to do, no libraries to include. It's as if it were part of the hardware. Same approach that Apple took with the Mac OS in 1984.
+____
+
+I like to think that Bootstrap is unifying the Web and allowing a unified experience of what an interface can look like across the Web. With the advent of Bootstrap, you can usually spot the sites that have adopted it by the buttons that they use. A grid layout and many of the other features fade into the background, but buttons, forms, and other unifying elements are a key part of Bootstrap. When I come across a site that is using Bootstrap, I want to give a high five to the webmaster at that domain, since he probably "just gets it." I felt the same way a few years ago whenever I saw `wp-content` in the HTML of sites that I visited.((("UIs (user interfaces)", "standardization of")))
+
+Now, buttons and links can all look alike with Bootstrap. Anything that is given a class of `.btn` will inherit the default look of a gray button with rounded corners. However, you can add color to the buttons by adding extra classes (see <<table2-3>>).(((colors, changing for buttons)))
+
+[[table2-3]]
+.Button color examples
+[options="header"]
+|=======================
+|Buttons                         |Class              |Description
+|image:images/btn.png[]          |`btn`              |Standard gray button with gradient
+|image:images/btn-primary.png[]  |`btn btn-primary`  |Provides extra visual weight and identifies the primary action in a set of buttons (blue)
+|image:images/btn-info.png[]     |`btn btn-info`     |Used as an alternative to the default styles (light blue)
+|image:images/btn-success.png[]  |`btn-success`      |Indicates a successful or positive action (green)
+|image:images/btn-warning.png[]  |`btn btn-warning`  |Indicates caution should be taken with this action (orange)
+|image:images/btn-danger.png[]   |`btn btn-danger`   |Indicates a dangerous or potentially negative action (red)
+|image:images/btn-inverse.png[]  |`btn btn-inverse`  |Alternate dark-gray button, not tied to a semantic action or use
+|image:images/btn-link.png[]     |`btn btn-link`     |De-emphasizes a button by making it look like a link while maintaining button behavior
+|=======================
+
+.Heads Up!
+WARNING: There are issues with buttons not appearing in Internet Explorer 9 because it doesn't crop background gradients on rounded corners. Also, Internet Explorer doesn't work well with disabled button elements. The rendered text is gray with a nasty text shadow that hasn't been fixed.(((Internet Explorer 9)))
+
+==== Button Sizes
+
+If you need larger or smaller buttons, simply add `.btn-large`, `.btn-small`, or `.btn-mini` to links or buttons (see <<figure2-43>>)(((sizing, of buttons))):
+
+[source,html]
+----
+<p>
+  <button class="btn btn-large btn-primary" type="button">Large button</button>
+  <button class="btn btn-large" type="button">Large button</button>
+</p>
+<p>
+  <button class="btn btn-primary" type="button">Default button</button>
+  <button class="btn" type="button">Default button</button>
+</p>
+<p>
+  <button class="btn btn-small btn-primary" type="button">Small button</button>
+  <button class="btn btn-small" type="button">Small button</button>
+</p>
+<p>
+  <button class="btn btn-mini btn-primary" type="button">Mini button</button>
+  <button class="btn btn-mini" type="button">Mini button</button>
+</p>
+----
+
+[[figure2-43]]
+.Different button sizes
+image::images/boot_0241.png[]
+
+If you want to create buttons that display like a block-level element, simply add the `.btn-block` class (see <<figure2-44>>). These buttons will display at 100% width:
+
+[source,html]
+----
+<button class="btn btn-large btn-block btn-primary" type="button">Block- 
+level button</button>
+<button class="btn btn-large btn-block" type="button">Block-level button</button>
+----
+
+[[figure2-44]]
+.Block-level button
+image::images/boot_0242.png[height="1.5in"]
+
+==== Disabled Button Styling
+
+For anchor elements, simply add the class of `.disabled` to the tag and the link will fade in color, and lose the gradient (see <<figure2-45>>)(((disabled buttons)))(((disabled links)))(((links, disabled))):
+
+[source,html]
+----
+<a href="#" class="btn btn-large btn-primary disabled">Primary link</a>
+<a href="#" class="btn btn-large disabled">Link</a>
+----
+
+[[figure2-45]]
+.Disabled link
+image::images/boot_0243.png[height=".4in"]
+
+[NOTE]
+=====================================================================
+The `.disabled` class is being used much like the `.active` class. So, there's no `.btn` prefix, and remember, this is only for looks. You will need to use some JavaScript to actually disable the link.
+
+=====================================================================
+
+For a button, simply add the `disabled` attribute to the button (see <<figure2-46>>). This will actually disable the button, so JavaScript is not directly needed(((range="endofrange", startref="ix_CSSbutt")))(((range="endofrange", startref="ix_butt"))):
+
+[source,html]
+----
+<button type="button" class="btn btn-large btn-primary disabled"
+disabled="disabled">Primary button</button>
+<button type="button" class="btn btn-large" disabled>Button</button>
+----
+[[figure2-46]]
+.Disabled button
+image::images/boot_0244.png[height=".3in"]
+
+=== Images
+
+Images have three classes (see <<figure2-47>>) that can be used to apply some simple styles: `.img-rounded` adds `border-radius:6px` to give the image rounded corners, `.img-circle` makes the entire image round by adding `border-radius:500px`, and `.img-polaroid` adds a bit of padding and a gray border((("CSS (Cascading Style Sheets)", "images")))(((images)))(((styles, applied with images))):
+
+[source,html]
+----
+<img src="..." class="img-rounded">
+<img src="..." class="img-circle">
+<img src="..." class="img-polaroid">
+----
+
+[[figure2-47]]
+.Images
+image::images/boot_0245.png[width="2.85in", height=".45"]
+
+=== Icons
+
+Bootstrap bundles 140 icons into one sprite that can be used with buttons, links, navigation, and form fields. The icons are provided by http://glyphicons.com/[GLYPHICONS]; see <<figure2-48>>.((("CSS (Cascading Style Sheets)", "icons")))(((icons)))(((GLYPHICONS)))((("<i> tag", sortas="i tag")))
+
+[[figure2-48]]
+.Icons by GLYPHICONS
+image::images/boot_02in04.png[]
+
+
+
+==== GLYPHICONS Attribution
+
+Users of Bootstrap are fortunate to use the GLYPHICONS for free on Bootstrap projects. The developers have asked that you link back to GLYPHICONS when practical.
+
+[quote, Bootstrap Documentation, http://getbootstrap.com]
+____
+GLYPHICONS Halflings are normally not available for free, but an arrangement between Bootstrap and the GLYPHICONS creators have made this possible at no cost to you as developers. As a thank you, we ask you to include an optional link back to GLYPHICONS whenever practical.
+____
+
+==== Usage
+
+To use the icons, simply use an `<i>` tag with the namespaced `.icon-` class. For example, if you want to use the edit icon, you add the `.icon-edit` class to the `<i>` tag:
+
+[source, html]
+----
+<i class="icon-edit"></i>
+----
+
+If you want to use the white icon, simply add the `.icon-white` class to the tag:
+
+[source, html]
+----
+<i class="icon-edit icon-white"></i>
+----
+
+===== Button groups
+
+By using button groups combined with icons, you can create nice interface elements with minimal markup (see <<figure2-49>>)(((buttons, button groups))):
+
+[source,html]
+----
+<div class="btn-toolbar">
+  <div class="btn-group">
+    <a class="btn" href="#"><i class="icon-align-left"></i></a>
+    <a class="btn" href="#"><i class="icon-align-center"></i></a>
+    <a class="btn" href="#"><i class="icon-align-right"></i></a>
+    <a class="btn" href="#"><i class="icon-align-justify"></i></a>
+  </div>
+</div>
+----
+
+[[figure2-49]]
+.Button groups
+image::images/boot_02in05.png[]
+
+===== Navigation
+
+When you are using icons next to a string of text, make sure to add a space to provide the proper alignment of the image (see <<figure2-50>>). Navigation code will be covered further in the next chapter.
+
+[source, html]
+----
+<ul class="nav nav-list">
+  <li class="active"><a href="#"><i class="icon-home icon-white"></i> 
+  Home</a></li>
+  <li><a href="#"><i class="icon-book"></i> Library</a></li>
+  <li><a href="#"><i class="icon-pencil"></i> Applications</a></li>
+  <li><a href="#"><i class="i"></i> Misc</a></li>
+</ul>
+----
+
+[[figure2-50]]
+.Basic navigation list
+image::images/boot_02in06.png[]

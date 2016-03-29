@@ -1,0 +1,392 @@
+[[scaffolding]]
+
+== Bootstrap Scaffolding
+
+=== What Is Bootstrap?
+
+Bootstrap is an open source product from Mark Otto and Jacob Thornton who, when it was initially released, were both employees at Twitter. There was a need to standardize the frontend toolsets of engineers across the company. In the launch blog post, Mark Otto introduced the project like this((("Otto, Mark")))((("Thornton, Jacob")))(((Twitter)))((("UIs (user interfaces)", "standardization of")))((("Bootstrap", "scaffolding", id="ix_bootscaff", range="startofrange"))):
+
+[quote, Mark Otto, https://dev.twitter.com/]
+____
+In the earlier days of Twitter, engineers used almost any library they were familiar with to meet front-end requirements. Inconsistencies among the individual applications made it difficult to scale and maintain them. Bootstrap began as an answer to these challenges and quickly accelerated during Twitter’s first Hackweek. By the end of Hackweek, we had reached a stable version that engineers could use across the company.
+____
+
+Since Bootstrap launched in August 2011, it has taken off in popularity. It has evolved from being an entirely CSS-driven project to include a host of JavaScript plugins and icons that go hand in hand with forms and buttons. At its base, it allows for responsive web design and features a robust 12-column, 940px-wide grid. One of the highlights is the build tool on http://getbootstrap.com[Bootstrap's website], where you can customize the build to suit your needs, choosing which CSS and JavaScript features you want to include on your site. All of this allows frontend web development to be catapulted forward, building on a stable foundation of forward-looking design and development. Getting started with Bootstrap is as simple as dropping some CSS and JavaScript into the root of your site.((("web development, responsive framework for")))(((Bootstrap, evolution of))) 
+
+For someone starting a new project, Bootstrap comes with a handful of useful elements. Normally, when I start a project, I start with tools like http://meyerweb.com/eric/tools/css/reset/[Eric Meyer's Reset CSS] and get going on my web project. With Bootstrap, you just need to include the _bootstrap.css_ CSS file and, optionally, the _bootstrap.js_ JavaScript file into your website and you are ready to go.(((Bootstrap, initial files needed)))
+
+// "the CSS file, and optionally the JavaScript file" is a little confusing right off the bat, though you do explain it a bit later. I wasn't sure if this was something I should make and add, or default files that come with bootstrap. Maybe just add a few words to make it a tiny bit clearer? -NM
+// Tried to make this a little more clear. -JS
+
+
+=== Bootstrap File Structure
+
+----
+ bootstrap/
+	├── css/
+	│   ├── bootstrap.css
+	│   ├── bootstrap.min.css
+	├── js/
+	│   ├── bootstrap.js
+	│   ├── bootstrap.min.js
+	├── img/
+	│   ├── glyphicons-halflings.png
+	│   ├── glyphicons-halflings-white.png
+	└── README.md
+----
+
+The Bootstrap download includes three folders: css, js, and img. For simplicity, add these to the root of your project. Minified versions of the CSS and JavaScript are also included. It is not necessary to include both the uncompressed and the minified versions. For the sake of brevity, I use the uncompressed version during development and then switch to the compressed version in production.(((scaffolding, file structure)))(((file structure)))
+
+// It might be cool to have a little screencast here, where you start up a new bootstrap project, and just show a finder window where you walk through the file structure and defaults. -NM
+
+=== Basic HTML Template
+
+Normally, a web project looks something like this(((scaffolding, HTML templates)))(((HTML templates)))((("templates", "HTML"))):
+
+[source,html]
+----
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Bootstrap 101 Template</title>
+	</head>
+	<body>
+		<h1>Hello, world!</h1>
+	</body>
+</html>
+----
+
+With Bootstrap, we include the link to the CSS stylesheet and the JavaScript(((HTML5 Doctype)))((("web browsers, standards mode"))):
+
+[source, html]
+----
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Bootstrap 101 Template</title>
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+	</head>
+	<body>
+		<h1>Hello, world!</h1>
+		<script src="js/bootstrap.min.js"></script>
+	</body>
+</html>
+----
+
+[NOTE]
+===============================
+Don't forget the HTML5 Doctype.
+
+By including <!DOCTYPE html>, all modern browsers are put into standards mode.
+===============================
+
+// Is it important that the JavaScript is included in the body, instead of in the head? Also is that Bootstrap comment in the head important? -NM
+// Updated -JS
+
+=== Global Styles
+
+With Bootstrap, a number of items come prebuilt. Instead of using the old reset block that was part of the Bootstrap 1.0 tree, Bootstrap 2.0 uses http://necolas.github.com/normalize.css/[Normalize.css], a project from Nicolas Gallagher that is part of the http://html5boilerplate.com[HTML5 Boilerplate]. This is included in the _bootstrap.css_ file.(((scaffolding, global styles)))(((global styles)))(((styles, global)))(((default styles)))
+
+// Is this all in the file that's included in the css folder by default? -NM
+// Fixed. -JS
+
+In particular, the following default styles give special treatment to typography and links(((typography, default styles for)))(((links, default styles for)))((("fonts", seealso="typography")))(((colors, changing for links))):
+
+* `margin` has been removed from the body, and content will snug up to the edges of the browser window.
+* `background-color: white;` is applied to the body.
+* Bootstrap is using the `@baseFontFamily`, `@baseFontSize`, and `@baseLineHeight` attributes as our typographic base. This allows the height of headings and other content around the site to maintain a similar line height. 
+* Bootstrap sets the global link color via `@linkColor` and applies link underlines only on `:hover`.
+
+// re: margin: does this mean the body content bleeds all the way to the edge of the window? -NM
+
+// re: typographic base: do you expand on this later in the book, and if so, can we add a cross reference to that section? If not, maybe add some external links or a sentence or two explaining what this is. -NM
+
+// This could be a great place for a video where you walk through these changes, and show what effect they have on the resulting website. -NM
+
+[NOTE]
+====
+Remember, if you don't like the colors or want to change a default, this can be done by changing the globals in any of the _.less_ files. To do this, update the _scaffolding.less_ file or overwrite colors in your own stylesheet.
+====
+
+// what is the scaffolding .less file, and what is the users stylesheet? is that different than the default stylesheet? -NM
+// Good point. 
+
+=== Default Grid System
+
+The default Bootstrap grid (see <<figure1-1>>) system utilizes 12 columns, making for a 940px-wide container without responsive features enabled. With the responsive CSS file added, the grid adapts to be 724px or 1170px wide, depending on your viewport. Below 767px viewports, such as the ones on tablets and smaller devices, the columns become fluid and stack vertically. At the default width, each column is 60 pixels wide and offset 20 pixels to the left. An example of the 12 possible columns is in <<figure1-1>>.(((scaffolding, default grid systems)))((("grid systems, default")))
+
+// I think this would be a great place for a jsfiddle, showing a resizable frame using the responsive grid that users can resize and see change. Basically, just an embedded responsive frame. Fallback for print, epub, etc, would be an image showing both default grid and responsive grid. -NM
+
+[[figure1-1]]
+.Default grid
+image::images/boot_0101.png[]
+
+==== Basic Grid HTML
+
+To create a simple layout, create a container with a `<div>` that has a class of `.row` and add the appropriate amount of `.span*` columns. Since we have a 12-column grid, we just need the amount of `.span*` columns to equal 12. We could use a 3-6-3 layout, 4-8, 3-5-4, 2-8-2... we could go on and on, but I think you get the gist.(((layouts, creating simple)))
+
+The following code shows `.span8` and `.span4`, which adds up to 12:
+
+[source, html]
+----
+
+<div class="row">
+  <div class="span8">...</div>
+  <div class="span4">...</div>
+</div>
+----
+
+// I'm not sure if this is feasible yet, but it would be cool to have an interactive frame where readers could try different combinations of span numbers and see the effect. Maybe even just a very short video where you walk through a few different combinations, showing the code as well, with a fallback image that compares a few combinations side by side. -NM
+
+// Starting work on this. 
+
+// jsfiddle::http://jsfiddle.net/whyisjake/b3X7n/embedded/result/[width="100%", height="300px"]
+
+
+==== Offsetting Columns
+
+You can move columns to the right using the `.offset*` class. Each class moves the span over that width. So an `.offset2` would move a `.span7` over two columns (see <<figure1-2>>)(((columns, offsetting)))(((offset grids))):
+
+[source, html]
+----
+<div class="row">
+  <div class="span2">...</div>
+  <div class="span7 offset2">...</div>
+</div>
+----
+
+[[figure1-2]]
+.Offset grid
+image::images/boot_0102.png[]
+
+==== Nesting Columns
+
+To nest your content with the default grid, inside of a `.span*`, simply add a new `.row` with enough `.span*` that it equals the number of spans of the parent container (see <<figure1-3>>)(((columns, nesting)))(((nesting grids))):
+
+// Could be a good place for a challenge/solution. "Given a parent span9, what values could you use in the child row?". Prepopulate the box with everything but the child span*'s, and then the pop-out solution would show the following code. -NM
+
+//So, let's say that you have a two columns layout, with a span8, and a span4, and you want to embed a two column layout inside of the layout, what spans would you use? For a four column layout?
+
+// Nellie, what is the format for somthing like this? Just a normal paragraph? 
+
+// Here's an example I pulled from another book. If you build the HTML and view it, you can see how it works. It may not be totally perfect, but I think it works alright. Let me know if you envision something else, though, and I can see how tricky it would be to implement. -NM
+
+// This looks good. The main problem with Chimera is that it doesn't look like Bootstrap... If we could patch that in, it would be awesome... -JS
+
+// ==== Excercise 1
+
+
+// Create a table that looks like this:
+
+// .ORM Employees
+// [options="header"]
+// |=======================
+// |First|Last
+// |Sanders|Kleinfeld
+// |Karen|Tripp
+// |Adam|Zaremba
+// |=======================
+
+//Write your solution here:
+
+// [condition="editable"]
+//[source, asciidoc]
+// ----
+// First Last
+// Sanders Kleinfeld
+// Karen Tripp
+// Adam Zaremba
+// ----
+
+
+// [role="solution"]
+// .Solution
+// ****
+// Your markup should look something like this:
+
+// ----
+// .ORM Employees
+// [options="header"]
+// |=======================
+// |First   | Last
+// |Sanders | Kleinfeld
+// |Karen   | Tripp
+// |Adam    | Zaremba
+// |=======================
+// ----
+
+// ****
+
+
+[source, html]
+----
+<div class="row">
+  <div class="span9">
+    Level 1 of column
+    <div class="row">
+      <div class="span6">Level 2</div>
+      <div class="span3">Level 2</div>
+    </div>
+  </div>
+</div>
+----
+
+[[figure1-3]]
+.Nesting grid
+image::images/boot_0103.png[]
+
+// jsfiddle::http://jsfiddle.net/whyisjake/EEWQ2/embedded/result/[width="100%", height="300px"]
+
+
+=== Fluid Grid System
+
+The fluid grid system uses percentages instead of pixels for column widths. It has the same responsive capabilities as our fixed grid system, ensuring proper proportions for key screen resolutions and devices. You can make any row "fluid" by changing `.row` to `.row-fluid`. The column classes stay exactly the same, making it easy to flip between fixed and fluid grids. To offset, you operate in the same way as the fixed grid system—add `.offset*` to any column to shift by your desired number of columns(((fluid grid systems)))(((scaffolding, fluid grid systems))):
+
+// I'd love to see some kind of demo of how changing from fixed to fluid changes the display of the website. Could be a video or a couple of jsfiddles. -NM
+
+//jsfiddle::http://jsfiddle.net/whyisjake/327R3/embedded/result/[width="100%", height="600px"]
+
+
+[source, html]
+----
+<div class="row-fluid">
+  <div class="span4">...</div>
+  <div class="span8">...</div>
+</div>
+
+<div class="row-fluid">
+  <div class="span4">...</div>
+  <div class="span4 offset2">...</div>
+</div>
+----
+
+Nesting a fluid grid is a little different. Since we are using percentages, each `.row` resets the column count to 12. For example, if you were inside a `.span8`, instead of two `.span4` elements to divide the content in half, you would use two `.span6` divs (see <<figure1-4>>). This is the case for responsive content, as we want the content to fill 100% of the container:
+
+
+[source, html]
+----
+<div class="row-fluid">
+  <div class="span8">
+		<div class="row">
+			<div class="span6">...</div>
+			<div class="span6">...</div>
+		</div>
+  </div>
+</div>
+----
+
+[[figure1-4]]
+.Nesting fluid grid
+image::images/responsive-grid.png[]
+
+// This is a little confusing. Some kind of demo or expanded explanation would be cool, but I'm not sure what just yet. Or maybe just a note about how it's kind of confusing to use the same span number scheme while working with percentages ("span6" = 50% of the parent, or something). -NM
+
+=== Container Layouts
+
+To add a fixed-width, centered layout to your page, simply wrap the content in `<div class="container">...</div>`. If you would like to use a fluid layout but want to wrap everything in a container, use the following: `<div class="container-fluid">...</div>`. Using a fluid layout is great when you are building applications, administration screens, and other related projects.(((scaffolding, container layouts)))((("containers, layouts for")))
+
+// So the only thing the container adds is centering? Any other benefits worth talking about? (or if you mention any later in the book, you could also just add a cross reference.) If not, I might rename this section "centered layouts", since that's really the essence of the content. -NM
+
+=== Responsive Design
+
+To turn on the responsive features of Bootstrap, you need to add a `<meta>` tag to the `<head>` of your web page. If you haven't downloaded the compiled source, you will also need to add the responsive CSS file. An example of required files looks like this(((scaffolding, responsive design)))(((responsive design, enabling in Bootstrap)))(((Bootstrap, enabling responsive features)))(((meta tags)))((("CSS (Cascading Style Sheets)", "responsive CSS file"))):
+
+// I might add the complete head markup in the example below, just to give people a little extra orientation. Also, why wouldn't they have downloaded the compiled source, and how do they add the CSS file in that case? -NM
+
+[source, html]
+----
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>My amazing Bootstrap site!</title>
+		<meta name="viewport" content="width=device-width, 
+              initial-scale=1.0">
+		<link href="/css/bootstrap.css" rel="stylesheet">
+		<link href="/css/bootstrap-responsive.css" rel="stylesheet">
+	</head>
+----
+
+[WARNING]
+===============================
+If you get started and find that the Bootstrap responsive features aren't working, make sure that you have these tags. The responsive features aren't added by default at this time because not everything needs to be responsive. Instead of encouraging developers to remove this feature, the authors of Bootstrap decided that it was best to enable it as needed.
+===============================
+
+// "Not everything needs to be responsive" - that's crazy talk! -NM
+// Yeah, come talk to us at MAKE... -JS
+
+==== What Is Responsive Design?
+
+Responsive design is a method for taking all of the existing content that is on the page and optimizing it for the device that is viewing it. For example, the desktop not only gets the normal version of the website, but it might also get a widescreen layout, optimized for the larger displays that many people have attached to their computers. Tablets get an optimized layout, taking advantage of their portrait or landscape layouts. And then with phones, you can target their much narrower width. To target these different widths, Bootstrap uses CSS media queries to measure the width of the browser viewport and then, using conditionals, changes which parts of the stylesheets are loaded. Using the width of the browser viewport, Bootstrap can then optimize the content using a combination of ratios or widths, but it mostly relies on 'min-width' and 'max-width' properties.(((scaffolding, responsive design)))(((responsive design, definition of)))((("web development, responsive framework for")))(((media queries)))((("CSS (Cascading Style Sheets)", "media queries")))(((layouts, optimized by device)))
+
+// maybe include some examples of a website that is responsive, and how it displays at various sizes/on different devices. -NM
+
+At the core, Bootstrap supports five different layouts, each relying on CSS media queries. The largest layout has columns that are 70 pixels wide, contrasting with the 60 pixels of the normal layout. The tablet layout brings the columns to 42 pixels wide, and when narrower than that, each column goes fluid, meaning the columns are stacked vertically and each column is the full width of the device (see <<table1-1>>).(((layouts, supported in Bootstrap)))
+
+[[table1-1]]
+.Responsive media queries
+[options="header"]
+|=====================================================================
+|Label				|Layout width 	 	|Column width 	|Gutter width
+|Large display 		|1200px and up 	 	|70px  			|30px
+|Default       		|980px and up  	 	|60px			|20px
+|Portrait tablets 	|768px and up   	|42px			|20px
+|Phones to tablets 	|767px and below 2+^|Fluid columns, no fixed widths
+|Phones				|480px and below 2+^|Fluid columns, no fixed widths
+|=====================================================================
+
+To add custom CSS based on the media query, you can either include all rules in one CSS file via the media queries below, or use entirely different CSS files((("CSS (Cascading Style Sheets)", "customized layouts"))):
+
+[source, css]
+--------------
+/* Large desktop */
+@media (min-width: 1200px) { ... }
+ 
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) { ... }
+ 
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) { ... }
+ 
+/* Landscape phones and down */
+@media (max-width: 480px) { ... }
+--------------
+
+For a larger site, you might want to divide each media query into a seperate CSS file. In the HTML file, you can call them with the `<link>` tag in the head of your document. This is useful for keeping file sizes smaller, but it does potentially increase the HTTP requests if the site is responsive. If you are using LESS to compile the CSS, you can have them all processed into one file:
+
+// maybe just spell out that last sentence a bit more, like "this means the server has to serve more files, which could make the response time slower" or something. -NM
+
+[source, html]
+----
+<link rel="stylesheet" href="base.css" />
+<link rel="stylesheet" media="(min-width: 1200px)" href="large.css" />
+<link rel="stylesheet" media="(min-width: 768px) and (max-width: 979px)"
+      href="tablet.css" />
+<link rel="stylesheet" media="(max-width: 767px)" href="tablet.css" />
+<link rel="stylesheet" media="(max-width: 480px)" href="phone.css" />
+----
+
+
+===== Helper classes
+
+Bootstrap also includes a handful of helper classes for doing responsive development (see <<table1-2>>). Use these sparingly. A couple of use cases that I have seen involve loading custom elements based on certain layouts. Perhaps you have a really nice header on the main layout, but on mobile you want to pare it down, leaving only a few of the elements. In this scenario, you could use the `.hidden-phone` class to hide either parts or entire dom elements from the header.(((scaffolding, helper classes)))(((helper classes)))(((responsive design, helper classes for)))(((media queries)))
+
+[[table1-2]]
+.Media queries helper classes
+[options="header"]
+|===========================================
+|Class			 |Phones  |Tablets |Desktops
+|.visible-phone	 |Visible |Hidden  |Hidden
+|.visible-tablet |Hidden  |Visible |Hidden
+|.visible-desktop|Hidden  |Hidden  |Visible
+|.hidden-phone	 |Hidden  |Visible |Visible
+|.hidden-tablet	 |Visible |Hidden  |Visible
+|.hidden-desktop |Visible |Visible |Hidden
+|===========================================	
+
+// I'd really love to see a slideshow here, where you see which class is being used, and then see the display on different devices. I envision this showing alongside the text. But I'm not totally sure if that's even feasible right now; a video with the same content could also work. I wouldn't even say narrative was necessary. Or maybe an animated gif? -NM
+
+There are two major ways that you could look at doing development. The mantra that a lot of people are shouting now is that you should start with mobile, build to that platform, and let the desktop follow. Bootstrap almost forces the opposite, where you would create a full-featured desktop site that "just works."(((mobile frameworks)))
+
+If you are looking for a strictly mobile framework, Bootstrap is still a great resource.(((range="endofrange", startref="ix_bootscaff")))
+
+// Just a test...

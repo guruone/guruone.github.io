@@ -1,0 +1,113 @@
+== Using Bootstrap
+
+=== GitHub Project
+
+Like a lot of great open source projects, the power of Bootstrap comes not just from the developers at the core of the project but also from the development community that supports it. http://github.com[GitHub] is a large code repository for projects, and at time of writing, Bootstrap is the most popular project. With over 42,000 stars and over 10,000 forks, the project is bustling with activity. As I mentioned in <<scaffolding>>, if you want to use Bootstrap, you can simply download the _.zip_ archive from the site, or you can download using `git`.((("GitHub code repository")))
+
+For the uninitated, `git` is a free and open source version control system. Bootstrap and a host of other projects manage everything using GitHub, which is an online code repository for `git` projects. To download the source for Bootstrap, run the following commands from the command(((Bootstrap, downloading))) line:
+
+[source, bash]
+----
+$ git clone https://github.com/twitter/bootstrap.git
+----
+
+Cloning Bootstrap will give you a full download of all the files--not just the CSS/JavaScript, but also all of the documentation pages and the LESS files for the dynamic JavaScript elements.
+
+If desired, using the LESS files, you can compile your own version of Bootstrap with the features or customizations that you need. 
+
+=== Customizing Bootstrap
+
+You can download the source, or if you want to easily customize a few of the colors, sizing, or plugins, you can cater the Bootstrap to your needs via the http://twitter.github.com/bootstrap/customize.html[Bootstrap website].((("Bootstrap", "customizing", id="ix_BScus", range="startofrange")))
+
+++++
+<?hard-pagebreak?>
+++++
+
+When you use the customize page (<<figure5_1>>), you decide what components you need. For example, you might choose to leave off all of the responsive features, or maybe you would like to leave off the button classes that conflict with styles that you already have. You can also opt out of any of the jQuery plugins. If you know that you aren't going to be using the modals or the carousel, you can leave it out of the build so that you have a smaller file to request.
+
+[[figure5_1]]
+.Customize page
+image::images/boot_0501.png[]
+
+Lastly, you can configure the LESS variables. Everything from column count to typography colors can be modified here. With these options, you can cater Bootstrap to your needs.(((LESS stylesheet variables)))
+
+==== Using LESS
+
+There are a few different ways to use LESS with Bootstrap (<<figure5_2>>). The first, and perhaps the easiest, is to use a preprocessor like CodeKit (<<fig5_3>>) or SimpLESS. You can use these tools to watch certain files or folders. Then when you save any of those files, they build the master CSS files. In addition to using traditional CSS techniques, you can use advanced features like mixins and functions to dynamically change the look of your site just by changing some variables.(((CodeKit preprocessor)))(((SimpLESS preprocessor)))
+
+[[figure5_2]]
+.Using Bootstrap with LESS
+image::images/boot_0502.png[]
+
+[[fig5_3]]
+.CodeKit and the Bootstrap code base
+image::images/boot_0503.png[]
+
+LESS is a dynamic stylesheet language for writing CSS. It allows you to write variables, functions, and mixins for your CSS. The Bootstrap _/less/_ folder has a few files, but for setting globals, check the _variables.less_ and _mixins.less_ files.
+
+In the _variables.less_ file, you will find all of the global variables for Bootstrap. Let's say you wanted to change the color of all of the links. You would simply update LESS to compile the CSS, and all of the links would change color.(((colors, changing for links)))(((links, changing color of)))
+
+[source, css]
+----
+/* Old Code */
+@linkColor:			#08c;
+@linkColorHover:	darken(@linkColor, 15%);
+
+/* New Code */
+@linkColor:			#7d00cc;
+@linkColorHover:	darken(@linkColor, 15%);
+----
+
+Now, all links are changed to a purple color, and buttons and other interface elements that call for +@linkColor+ will be updated throughout your site.
+
+In the beginning, I was really hesitant to use LESS. After all, I have been writing CSS for a long time, and I didn't feel the need to change. The nesting alone is such a huge timesaver that I'm really glad to have added it to my workflow. 
+
+
+// Is there a LESS book that O'Reilly publishes?
+// I might know someone to write one... Want to include something like the following line:
+// This book doesn't mean to be the exclusive look at using LESS, for that checkout #### book by ####, which is a great resource for learning more about LESS.
+
+==== Text Snippets
+
+To rapidly develop Bootstrap sites, I like to use http://www.sublimetext.com/2[Sublime Text 2] and the Bootstrap snippets (shown in <<figure5_4>>) from DEVtellect on https://github.com/devtellect/sublime-twitter-bootstrap-snippets/[GitHub]. This makes adding any component as easy as adding a keyboard shortcut.(((text snippets)))(((Sublime Text 2)))(((snippets)))
+
+[[figure5_4]]
+.Bootstrap snippets
+image::images/boot_0504.png[width="4.6in"]
+
+To install the snippets, clone the git repository into your packages folder:
+
+[source, bash]
+----
+git clone git@github.com:devtellect/sublime-twitter-bootstrap-snippets.git
+----
+
+There are clippings for lots of popular IDEs/text editors.
+
+==== Photoshop Templates
+
+In addition to snippets, there have been a few Photoshop documents of all of the Bootstrap markup elements. My favorite comes from http://gui.repixdesign.com/#bootstrap[Repix Design]. Their website is shown in <<repix_fig>>.(((Photoshop templates)))((("templates", "Photoshop")))(((Repix Design))) 
+
+[[repix_fig]]
+.Repix design
+image::images/boot_05in01.png[]
+
+Here are the features:
+
+* Adjustable colors
+* Separate layers
+* Vector-based
+
+The PSD is free, but the author requests that you pay with a tweet. Kind of a new spin on the free-as-in-free-speech mantra of open source programming.(((WrapBootstrap)))(((Bootswatch)))(((Bootstrap, themes for)))(((themes)))
+
+==== Themes
+
+If you have a vanilla installation of Bootstrap, but want to add a bit of panache, there are few different ways to find free, and premium themes for Bootstrap. My two favorites are https://wrapbootstrap.com/[\{Wrap}Bootstrap], and http://bootswatch.com/[Bootswatch]. Both have some great options, and make it easy to get a new style on your site. (((range="endofrange", startref="ix_BScus")))
+
+=== Built with Bootstrap
+
+If you are looking for even more inspiration, check out http://builtwithbootstrap.com/[Built With Bootstrap], a Tumblr that features screen grabs of user-submitted Bootstrap sites. It is a fun way to see the sites using Bootstrap.(((Built With Bootstrap)))
+
+=== Conclusion
+
+As you can see, whatever the project, Bootstrap can fill the needs of just about any Web project. Its blend of responsive framework, extensive JavaScript plugins, and robust interface components make developing easy, fast, and feature rich. It has been great working with Bootstrap over the last year, and I look forward to the future development of the project. Cheers, kudos, and all of the accolades to Jacob Thornton and Mark Otto for creating a project that is so versatile and fun to develop around.((("Thornton, Jacob")))((("Otto, Mark")))
