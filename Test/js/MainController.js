@@ -9,17 +9,17 @@ angular.module('MyApp', [])
   student.firstName = "Student 1";
   $scope.students[0] = student;
   
-  var student1 = {};
-  student1.firstName = "Student 2";
-  $scope.students[1] = student1;
+  student = {};
+  student.firstName = "Student 2";
+  $scope.students[1] = student;
   
-  var student2 = {};
-  student2.firstName = "Student 3";
-  $scope.students[2] = student2;
+  student = {};
+  student.firstName = "Student 3";
+  $scope.students[2] = student;
   
-  var student3 = {};
-  student3.firstName = "Student 4";
-  $scope.students[3] = student3;
+  student = {};
+  student.firstName = "Student 4";
+  $scope.students[3] = student;
   
   
   $scope.counter = 0;
