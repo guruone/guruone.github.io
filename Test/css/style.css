@@ -1,1 +1,3 @@
-
+body, span, div, table, tr, tbody, tfoot, td, hr {
+    -webkit-print-color-adjust: exact;
+}
